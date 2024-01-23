@@ -8,11 +8,13 @@ import 'package:flutter_bloc_practice/repository/favourite_repository.dart';
 import 'package:flutter_bloc_practice/ui/counter/counter_screen.dart';
 import 'package:flutter_bloc_practice/ui/favourit_app/favourit_screen.dart';
 import 'package:flutter_bloc_practice/ui/image_picker/image_picker_screen.dart';
+import 'package:flutter_bloc_practice/ui/post/post_screen.dart';
 import 'package:flutter_bloc_practice/ui/switch_example/switch_example.dart';
 import 'package:flutter_bloc_practice/utils/image_picker_utils.dart';
 import 'package:flutter_bloc_practice/ui/todo/todo_screen.dart';
 
 import 'bloc/favourite/favourite_bloc.dart';
+import 'bloc/post/post_bloc.dart';
 
 
 void main() {
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
        // BlocProvider(create: (context) => ImagePickerBloc(ImagePickerUtils()),),
         BlocProvider(create: (context) => TodoBloc(),),
         BlocProvider(create: (context) => FavouriteBloc(FavouriteRepository()),),
-
+        BlocProvider(create: (context) => PostBloc()),
 
       ],
       child: MaterialApp(
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.teal
           )
         ),
-        home: const FavouriteScreen(),
+        home: const PostScreen(),
       ),
     );
   }
