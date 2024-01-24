@@ -1,16 +1,16 @@
 class PostModel {
   int? _postId;
-  int? _it;
+  int? _id;
   String? _name;
   String? _email;
   String? _body;
 
-  PostModel({int? postId, int? it, String? name, String? email, String? body}) {
+  PostModel({int? postId, int? id, String? name, String? email, String? body}) {
     if (postId != null) {
       this._postId = postId;
     }
-    if (it != null) {
-      this._it = it;
+    if (id != null) {
+      this._id = id;
     }
     if (name != null) {
       this._name = name;
@@ -25,8 +25,8 @@ class PostModel {
 
   int? get postId => _postId;
   set postId(int? postId) => _postId = postId;
-  int? get it => _it;
-  set it(int? it) => _it = it;
+  int? get id => _id;
+  set id(int? id) => _id = id;
   String? get name => _name;
   set name(String? name) => _name = name;
   String? get email => _email;
@@ -36,7 +36,7 @@ class PostModel {
 
   PostModel.fromJson(Map<String, dynamic> json) {
     _postId = json['postId'];
-    _it = json['it'];
+    _id = json['id'];
     _name = json['name'];
     _email = json['email'];
     _body = json['body'];
@@ -45,7 +45,7 @@ class PostModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['postId'] = this._postId;
-    data['it'] = this._it;
+    data['id'] = this._id;
     data['name'] = this._name;
     data['email'] = this._email;
     data['body'] = this._body;

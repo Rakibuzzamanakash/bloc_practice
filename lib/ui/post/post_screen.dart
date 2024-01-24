@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_practice/bloc/post/post_bloc.dart';
@@ -22,24 +23,55 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Posts api"),
+        title: const Text("Posts api"),
       ),
       body: BlocBuilder<PostBloc, PostStates>(builder: (context, state) {
         switch (state.postStatus) {
           case PostStatus.loading:
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           case PostStatus.failure:
             return Center(child: Text(state.message.toString()));
           case PostStatus.success:
-            return ListView.builder(
-                itemCount: state.postList.length,
-                itemBuilder: (context,index){
-                  final item = state.postList[index];
-                  return ListTile(
-                    title: Text(item.email.toString()),
-                    subtitle: Text(item.body.toString()),
-                  );
-                });
+            return Column(
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "Search Email",
+                    border: OutlineInputBorder()
+                  ),
+                  onChanged: (key){
+                   context.read<PostBloc>().add(SearchItem(key));
+                  },
+                ),
+                Expanded(
+                  child: state.searchMessage.isNotEmpty?
+                      Center(child: Text(state.searchMessage.toString()),)
+                      : ListView.builder(
+                      itemCount: state.temPostList.isEmpty? state.postList.length: state.temPostList.length,
+                      itemBuilder: (context,index){
+
+                        if(state.temPostList.isNotEmpty){
+                          final item = state.temPostList[index];
+                          return Card(
+                            child: ListTile(
+                              title: Text(item.email.toString()),
+                              subtitle: Text(item.body.toString()),
+                            ),
+                          );
+                        }else{
+                          final item = state.postList[index];
+                          return Card(
+                            child: ListTile(
+                              title: Text(item.email.toString()),
+                              subtitle: Text(item.body.toString()),
+                            ),
+                          );
+                        }
+
+                      }),
+                )
+              ],
+            );
         }
       }),
     );
